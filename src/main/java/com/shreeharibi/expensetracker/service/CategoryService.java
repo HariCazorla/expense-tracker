@@ -20,4 +20,13 @@ public class CategoryService {
     public List<Category> getCategories() {
         return categoryRepository.findAll();
     }
+
+    public void addNewCategory(Category category) {
+        Optional<Category> _category = categoryRepository.findCategoryByName(category.getName());
+
+        if (_category.isPresent()) {
+            throw new IllegalStateException("Category exists...");
+        }
+        categoryRepository.save(category);
+    }
 }
