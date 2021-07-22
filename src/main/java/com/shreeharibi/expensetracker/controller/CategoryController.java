@@ -3,9 +3,7 @@ package com.shreeharibi.expensetracker.controller;
 import com.shreeharibi.expensetracker.category.Category;
 import com.shreeharibi.expensetracker.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,10 @@ public class CategoryController {
     @GetMapping
     public List<Category> getAllCategories() {
         return categoryService.getCategories();
+    }
+
+    @PostMapping
+    public void addNewCategory(@RequestBody Category category) {
+        categoryService.addNewCategory(category);
     }
 }
