@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/category")
@@ -25,5 +26,13 @@ public class CategoryController {
     @PostMapping
     public void addNewCategory(@RequestBody Category category) {
         categoryService.addNewCategory(category);
+    }
+
+    @DeleteMapping
+    public void deleteCategory(@RequestBody Map<String, List<String>> categoryList) {
+        List<String> categories = categoryList.get("category");
+        for (String category : categories) {
+            categoryService.deleteCategory(category);
+        }
     }
 }
