@@ -29,4 +29,16 @@ public class CategoryService {
         }
         categoryRepository.save(category);
     }
+
+    public void deleteCategory(String categoryName) {
+        Optional<Category> _category = categoryRepository.findCategoryByName(categoryName);
+
+        if (!_category.isPresent()) {
+            System.out.println("Category does not exist...");
+            return;
+        }
+        System.out.println("Deleting " + categoryName);
+        categoryRepository.deleteById(_category.get().getId());
+        return;
+    }
 }
