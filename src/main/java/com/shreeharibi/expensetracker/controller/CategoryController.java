@@ -3,6 +3,7 @@ package com.shreeharibi.expensetracker.controller;
 import com.shreeharibi.expensetracker.category.Category;
 import com.shreeharibi.expensetracker.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,5 +35,13 @@ public class CategoryController {
         for (String category : categories) {
             categoryService.deleteCategory(category);
         }
+    }
+
+    @PutMapping(path = "{oldCategoryName}")
+    public ResponseEntity<Category> updateCategory(
+            @PathVariable("oldCategoryName") String oldCategoryName,
+            @RequestBody Category category
+    ) {
+        return categoryService.updateCategory(oldCategoryName, category);
     }
 }
