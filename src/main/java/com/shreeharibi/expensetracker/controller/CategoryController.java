@@ -30,11 +30,18 @@ public class CategoryController {
     }
 
     @DeleteMapping
-    public void deleteCategory(@RequestBody Map<String, List<String>> categoryList) {
+    public void deleteCategoryByName(@RequestBody Map<String, List<String>> categoryList) {
         List<String> categories = categoryList.get("category");
         for (String category : categories) {
-            categoryService.deleteCategory(category);
+            categoryService.deleteCategoryByName(category);
         }
+    }
+
+    @DeleteMapping(path = "{categoryId}")
+    public void deleteCategoryById(
+            @PathVariable("categoryId") Long categoryId
+    ) {
+        categoryService.deleteCategoryById(categoryId);
     }
 
     @PutMapping(path = "{oldCategoryName}")
