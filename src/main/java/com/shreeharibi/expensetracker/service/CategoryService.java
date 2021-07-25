@@ -32,7 +32,7 @@ public class CategoryService {
         categoryRepository.save(category);
     }
 
-    public void deleteCategory(String categoryName) {
+    public void deleteCategoryByName(String categoryName) {
         Optional<Category> _category = categoryRepository.findCategoryByName(categoryName);
 
         if (!_category.isPresent()) {
@@ -41,6 +41,16 @@ public class CategoryService {
         }
         System.out.println("Deleting " + categoryName);
         categoryRepository.deleteById(_category.get().getId());
+        return;
+    }
+
+    public void deleteCategoryById(Long categoryId) {
+        Optional<Category> _category = categoryRepository.findById(categoryId);
+
+        if (_category.isPresent()) {
+            System.out.println("Deleting category id " + categoryId);
+            categoryRepository.deleteById(categoryId);
+        }
         return;
     }
 
