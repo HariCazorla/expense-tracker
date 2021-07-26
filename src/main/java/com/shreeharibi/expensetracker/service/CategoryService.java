@@ -67,4 +67,14 @@ public class CategoryService {
         Category updatedCategory = categoryRepository.save(_category.get());
         return ResponseEntity.ok(updatedCategory);
     }
+
+    public Category getCategoryById(Long categoryId) {
+        Optional<Category> _category = categoryRepository.findById(categoryId);
+
+        if (!_category.isPresent()) {
+            throw new IllegalStateException("Category does not exist...");
+        }
+
+        return _category.get();
+    }
 }
