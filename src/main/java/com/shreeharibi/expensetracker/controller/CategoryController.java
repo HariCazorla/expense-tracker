@@ -24,6 +24,13 @@ public class CategoryController {
         return categoryService.getCategories();
     }
 
+    @GetMapping(path = "{categoryId}")
+    public Category getCategoryById(
+            @PathVariable("categoryId") Long categoryId
+    ) {
+        return categoryService.getCategoryById(categoryId);
+    }
+
     @PostMapping
     public void addNewCategory(@RequestBody Category category) {
         categoryService.addNewCategory(category);
