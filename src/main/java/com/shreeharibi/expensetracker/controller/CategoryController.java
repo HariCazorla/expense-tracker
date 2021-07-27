@@ -24,11 +24,17 @@ public class CategoryController {
         return categoryService.getCategories();
     }
 
-    @GetMapping(path = "{categoryId}")
-    public Category getCategoryById(
-            @PathVariable("categoryId") Long categoryId
-    ) {
-        return categoryService.getCategoryById(categoryId);
+    @GetMapping("{details}")
+    public Category getCategoryByIdorName(
+            @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String name) {
+        if (!name.isEmpty()){
+            return categoryService.getCategoryByName(name);
+        }
+        if (id >= 0) {
+            return categoryService.getCategoryById(id);
+        }
+        return null;
     }
 
     @PostMapping

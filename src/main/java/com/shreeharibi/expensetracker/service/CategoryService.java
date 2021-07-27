@@ -77,4 +77,14 @@ public class CategoryService {
 
         return _category.get();
     }
+
+    public Category getCategoryByName(String categoryName) {
+        Optional<Category> _category = categoryRepository.findCategoryByName(categoryName);
+
+        if (!_category.isPresent()) {
+            throw new IllegalStateException("Category does not exist...");
+        }
+
+        return _category.get();
+    }
 }
