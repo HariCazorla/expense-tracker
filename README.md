@@ -13,8 +13,9 @@ To access the REST end points, use basic auth with default user and take passwor
 
 # Available rest end points
 1. Get all categories. GET http://localhost:8080/api/v1/category
-2. Get category by Id. GET http://localhost:8080/api/v1/category/{categoryId}
-3. Add new category. POST http://localhost:8080/api/v1/category, request body: {"name":"...", "description":"..."}
-4. Delete existing categories by names. DELETE http://localhost:8080/api/v1/category, request body: {"category":[name(s)]}
-5. Delete an existing category by Id. DELETE http://localhost:8080/api/v1/category/{categoryId}
-6. Update an existing category. PUT http://localhost:8080/api/v1/category/{oldcategoryname}, request body: {"name":"...", "description":"..."}
+2. Get category by id. GET http://localhost:8080/api/v1/category?id={categoryId}
+3. Get category by name. GET http://localhost:8080/api/v1/category?name={categoryName}
+4. Add new category. POST http://localhost:8080/api/v1/category, request body: {"name":"...", "description":"..."}
+5. Delete existing categories by names. DELETE http://localhost:8080/api/v1/category, request body: {"category":[name(s)]}
+6. Delete an existing category by Id. DELETE http://localhost:8080/api/v1/category/{categoryId}
+7. Update an existing category. PUT http://localhost:8080/api/v1/category/{oldcategoryname}, request body: {"name":"...", "description":"..."}
