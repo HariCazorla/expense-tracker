@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,22 +20,26 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping
-    public List<Category> getAllCategories() {
-        return categoryService.getCategories();
-    }
+//    @GetMapping
+//    public List<Category> getAllCategories() {
+//        return categoryService.getCategories();
+//    }
 
-    @GetMapping("{details}")
-    public Category getCategoryByIdorName(
+    @GetMapping()
+    public List<Category> getCategoryByIdorName(
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String name) {
-        if (!name.isEmpty()){
-            return categoryService.getCategoryByName(name);
+        List<Category> result = new ArrayList<Category>();
+        if ((id == null) && (name == null)) {
+            result = categoryService.getCategories();
         }
-        if (id >= 0) {
-            return categoryService.getCategoryById(id);
+        else if (name == null) {
+            result.add(categoryService.getCategoryById(id));
         }
-        return null;
+        else {
+            result.add(categoryService.getCategoryByName(name));
+        }
+        return result;
     }
 
     @PostMapping
