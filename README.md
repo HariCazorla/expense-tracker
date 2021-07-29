@@ -1,5 +1,6 @@
 # expense-tracker
-A simple expense tracker using Spring boot
+A simple expense tracker using Spring boot.
+
 Application is available at http://localhost:8080
 
 # To run the application
