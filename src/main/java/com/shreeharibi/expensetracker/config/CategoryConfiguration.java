@@ -1,5 +1,7 @@
-package com.shreeharibi.expensetracker.category;
+package com.shreeharibi.expensetracker.config;
 
+import com.shreeharibi.expensetracker.category.Category;
+import com.shreeharibi.expensetracker.category.CategoryRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
