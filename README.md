@@ -2,6 +2,7 @@
 A simple expense tracker using Spring boot.
 
 Application is available at http://localhost:8080
+
 Swagger documentation is available at http://localhost:8080/swagger-ui.html#/
 
 # To run the application
