@@ -22,3 +22,6 @@ To access the REST end points, use basic auth with default user and take passwor
 5. Delete existing categories by names. DELETE http://localhost:8080/api/v1/category, request body: {"category":[name(s)]}
 6. Delete an existing category by Id. DELETE http://localhost:8080/api/v1/category/{categoryId}
 7. Update an existing category. PUT http://localhost:8080/api/v1/category/{oldcategoryname}, request body: {"name":"...", "description":"..."}
+8. Get all expenses. GET http://localhost:8080/api/v1/expenses
+9. Get expense by id. GET http://localhost:8080/api/v1/expenses?id={expenseId}
+10. Get expense by name. GET http://localhost:8080/api/v1/expenses?name={expenseName}
