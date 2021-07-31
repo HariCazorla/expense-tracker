@@ -1,5 +1,5 @@
 # expense-tracker
-A simple expense tracker using Spring boot.
+A small project to understand spring boot, spring boot data JPA, and spring boot security. The expense-tracker is a service which comes with default set of categories. APIs are available to add/edit/delete categories and expenses. Swagger UI is integrated and it can be used to refer API documentation.
 
 Application is available at http://localhost:8080
 
@@ -12,7 +12,7 @@ docker-compose up
 ```
 Start the spring application.
 
-To access the REST end points, use basic auth with default user and take password from console.
+To access the REST end points, use basic authentication.
 
 # Available rest end points
 1. Get all categories. GET http://localhost:8080/api/v1/category
