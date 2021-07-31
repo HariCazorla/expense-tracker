@@ -1,6 +1,6 @@
 package com.shreeharibi.expensetracker.service;
 
-import com.shreeharibi.expensetracker.category.Category;
+import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

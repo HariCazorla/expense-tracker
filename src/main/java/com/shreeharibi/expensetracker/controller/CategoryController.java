@@ -1,6 +1,6 @@
 package com.shreeharibi.expensetracker.controller;
 
-import com.shreeharibi.expensetracker.category.Category;
+import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +19,6 @@ public class CategoryController {
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
-
-//    @GetMapping
-//    public List<Category> getAllCategories() {
-//        return categoryService.getCategories();
-//    }
 
     @GetMapping()
     public List<Category> getCategoryByIdorName(
