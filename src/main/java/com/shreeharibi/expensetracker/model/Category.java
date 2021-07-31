@@ -1,4 +1,4 @@
-package com.shreeharibi.expensetracker.category;
+package com.shreeharibi.expensetracker.model;
 
 import javax.persistence.*;
 

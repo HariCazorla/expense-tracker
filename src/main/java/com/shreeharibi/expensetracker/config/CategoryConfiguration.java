@@ -1,6 +1,6 @@
 package com.shreeharibi.expensetracker.config;
 
-import com.shreeharibi.expensetracker.category.Category;
+import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.category.CategoryRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -11,37 +11,45 @@ import java.util.List;
 @Configuration
 public class CategoryConfiguration {
     @Bean
-    CommandLineRunner commandLineRunner(
+    CommandLineRunner commandLineRunnerCategories(
             CategoryRepository categoryRepository) {
         return args -> {
-            Category groceries = new Category(
+
+            Category others = new Category(
                     1L,
+                    "others",
+                    "default category"
+            );
+
+            Category groceries = new Category(
+                    2L,
                     "groceries",
                     "You can add groceries here"
             );
             Category travel = new Category(
-                    2L,
+                    3L,
                     "travel",
                     "You can add travel here"
             );
             Category concerts = new Category(
-                    3L,
+                    4L,
                     "concerts",
                     "You can add concerts here"
             );
             Category cinema = new Category(
-                    4L,
+                    5L,
                     "cinema",
                     "You can add cinema here"
             );
             Category fitness = new Category(
-                    5L,
+                    6L,
                     "fitness",
                     "You can add fitness here"
             );
 
             categoryRepository.saveAll(
                     List.of(
+                            others,
                             groceries,
                             travel,
                             concerts,
