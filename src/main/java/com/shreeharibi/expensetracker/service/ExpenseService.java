@@ -40,4 +40,14 @@ public class ExpenseService {
 
         return _expense.get();
     }
+
+    public Expense addExpense(Expense expense) {
+        Optional<Expense> _expense = expenseRepository.findById(expense.getExpenseId());
+        if (_expense.isPresent()) {
+            throw new IllegalStateException("Expense already exists");
+        }
+
+        expenseRepository.save(expense);
+        return expense;
+    }
 }
