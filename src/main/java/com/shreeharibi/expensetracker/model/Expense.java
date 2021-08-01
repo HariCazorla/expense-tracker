@@ -1,5 +1,7 @@
 package com.shreeharibi.expensetracker.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
@@ -7,33 +9,35 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 @Table(name = "expense")
+@ApiModel(description = "class representing the expense")
 public class Expense {
+    @ApiModelProperty(notes = "Name of the item", example = "Shoes", required = true, allowEmptyValue = false)
     @NotEmpty(message = "Expense name cannot be empty")
     private String name;
 
     @Id
-    @SequenceGenerator(
-            name = "expense_sequence",
-            sequenceName = "expense_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "expense_sequence"
+            strategy = GenerationType.AUTO
     )
+    @ApiModelProperty(notes = "ID is auto generated", example = "NA", required = false, allowEmptyValue = true)
     private Long expenseId;
+    @ApiModelProperty(notes = "Category ID, use category end points to find out suitable one", example = "1", required = true, allowEmptyValue = false)
     private Long categoryId;
 
     @Min(1)
+    @ApiModelProperty(notes = "Amount of the item", example = "70", required = true, allowEmptyValue = false)
     private Double amount;
 
-    @Past
+    @PastOrPresent
+    @ApiModelProperty(notes = "Date format YYYY-MM-DD", example = "2021-07-31", required = false, allowEmptyValue = true)
     private LocalDate creationDate;
+    @ApiModelProperty(notes = "Additional information", example = "Nike running shoes", required = false, allowEmptyValue = true)
     private String comments;
 
     public Expense() {
