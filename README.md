@@ -25,3 +25,10 @@ To access the REST end points, use basic authentication.
 8. Get all expenses. GET http://localhost:8080/api/v1/expenses
 9. Get expense by id. GET http://localhost:8080/api/v1/expenses?id={expenseId}
 10. Get expense by name. GET http://localhost:8080/api/v1/expenses?name={expenseName}
+11. Add new expense. POST http://localhost:8080/api/v1/expenses, request body: {
+  "amount": 70,
+  "categoryId": 2,
+  "creationDate": "2021-07-31",
+  "expenseId": "3",
+  "name": "Shoes"
+}
