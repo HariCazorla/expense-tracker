@@ -6,10 +6,7 @@ import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -23,10 +20,11 @@ public class Expense {
 
     @Id
     @GeneratedValue(
-            strategy = GenerationType.AUTO
+            strategy = GenerationType.IDENTITY
     )
-    @ApiModelProperty(notes = "ID is auto generated", example = "NA", required = false, allowEmptyValue = true)
+//    @ApiModelProperty(notes = "ID is auto generated", example = "NA", required = false, allowEmptyValue = true)
     private Long expenseId;
+
     @ApiModelProperty(notes = "Category ID, use category end points to find out suitable one", example = "1", required = true, allowEmptyValue = false)
     private Long categoryId;
 
@@ -37,7 +35,9 @@ public class Expense {
     @PastOrPresent
     @ApiModelProperty(notes = "Date format YYYY-MM-DD", example = "2021-07-31", required = false, allowEmptyValue = true)
     private LocalDate creationDate;
+
     @ApiModelProperty(notes = "Additional information", example = "Nike running shoes", required = false, allowEmptyValue = true)
+    @Size(max = 500)
     private String comments;
 
     public Expense() {

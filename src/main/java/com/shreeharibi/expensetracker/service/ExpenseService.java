@@ -4,6 +4,7 @@ import com.shreeharibi.expensetracker.category.ExpenseRepository;
 import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.model.Expense;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,12 +43,38 @@ public class ExpenseService {
     }
 
     public Expense addExpense(Expense expense) {
-        Optional<Expense> _expense = expenseRepository.findById(expense.getExpenseId());
+        Optional<Expense> _expense = expenseRepository.findExpenseByName(expense.getName());
         if (_expense.isPresent()) {
             throw new IllegalStateException("Expense already exists");
         }
 
         expenseRepository.save(expense);
         return expense;
+    }
+
+    public void deleteExpenseById(Long expenseId) {
+        Optional<Expense> _expense = expenseRepository.findById(expenseId);
+
+        if (_expense.isPresent()) {
+            System.out.println("Deleting expense id " + expenseId);
+            expenseRepository.deleteById(expenseId);
+        }
+        return;
+    }
+
+    public ResponseEntity<Expense> updateoldExpense(Long oldExpenseId, Expense expense) {
+        Optional<Expense> _expense = expenseRepository.findById(oldExpenseId);
+
+        if (!_expense.isPresent()) {
+            throw new IllegalStateException("Expense does not exist...");
+        }
+
+        _expense.get().setName(expense.getName());
+        _expense.get().setAmount(expense.getAmount());
+        _expense.get().setCategoryId(expense.getCategoryId());
+        _expense.get().setComments(expense.getComments());
+        _expense.get().setCreationDate(expense.getCreationDate());
+        Expense updatedExpense = expenseRepository.save(_expense.get());
+        return ResponseEntity.ok(updatedExpense);
     }
 }
