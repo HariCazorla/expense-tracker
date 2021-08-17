@@ -1,13 +1,16 @@
 package com.shreeharibi.expensetracker.controller;
 
+import com.shreeharibi.expensetracker.exceptions.ExpenseNotFoundException;
 import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.model.Expense;
 import com.shreeharibi.expensetracker.service.ExpenseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -37,14 +40,19 @@ public class ExpenseController {
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String name) {
         List<Expense> result = new ArrayList<Expense>();
-        if ((id == null) && (name == null)) {
-            result = expenseService.getExpenses();
-        }
-        else if (name == null) {
-            result.add(expenseService.getExpenseById(id));
-        }
-        else {
-            result.add(expenseService.getExpenseByName(name));
+        try {
+            if ((id == null) && (name == null)) {
+                result = expenseService.getExpenses();
+            }
+            else if (name == null) {
+                result.add(expenseService.getExpenseById(id));
+            }
+            else {
+                result.add(expenseService.getExpenseByName(name));
+            }
+        } catch (ExpenseNotFoundException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
         return result;
     }
@@ -77,8 +85,12 @@ public class ExpenseController {
     ) {
         try {
             return expenseService.updateoldExpense(oldExpenseId, expense);
-        } catch (DateTimeParseException exception) {
-            throw new IllegalStateException("Failed to update expense");
+        } catch (DateTimeParseException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
+        } catch (ExpenseNotFoundException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
     }
 }

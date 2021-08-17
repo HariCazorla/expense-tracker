@@ -1,6 +1,7 @@
 package com.shreeharibi.expensetracker.service;
 
 import com.shreeharibi.expensetracker.category.ExpenseRepository;
+import com.shreeharibi.expensetracker.exceptions.ExpenseNotFoundException;
 import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.model.Expense;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +23,21 @@ public class ExpenseService {
         return expenseRepository.findAll();
     }
 
-    public Expense getExpenseById(Long id) {
+    public Expense getExpenseById(Long id) throws ExpenseNotFoundException {
         Optional<Expense> _expense = expenseRepository.findById(id);
 
         if (!_expense.isPresent()) {
-            throw new IllegalStateException("Expense does not exist...");
+            throw new ExpenseNotFoundException("Expense does not exist...");
         }
 
         return _expense.get();
     }
 
-    public Expense getExpenseByName(String name) {
+    public Expense getExpenseByName(String name) throws ExpenseNotFoundException {
         Optional<Expense> _expense = expenseRepository.findExpenseByName(name);
 
         if (!_expense.isPresent()) {
-            throw new IllegalStateException("Expense does not exist...");
+            throw new ExpenseNotFoundException("Expense does not exist...");
         }
 
         return _expense.get();
@@ -62,11 +63,11 @@ public class ExpenseService {
         return;
     }
 
-    public ResponseEntity<Expense> updateoldExpense(Long oldExpenseId, Expense expense) {
+    public ResponseEntity<Expense> updateoldExpense(Long oldExpenseId, Expense expense) throws ExpenseNotFoundException {
         Optional<Expense> _expense = expenseRepository.findById(oldExpenseId);
 
         if (!_expense.isPresent()) {
-            throw new IllegalStateException("Expense does not exist...");
+            throw new ExpenseNotFoundException("Expense does not exist...");
         }
 
         _expense.get().setName(expense.getName());
