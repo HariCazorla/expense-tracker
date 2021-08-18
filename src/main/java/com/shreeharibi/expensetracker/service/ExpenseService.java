@@ -1,6 +1,7 @@
 package com.shreeharibi.expensetracker.service;
 
 import com.shreeharibi.expensetracker.category.ExpenseRepository;
+import com.shreeharibi.expensetracker.exceptions.ExpenseExistsException;
 import com.shreeharibi.expensetracker.exceptions.ExpenseNotFoundException;
 import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.model.Expense;
@@ -43,10 +44,10 @@ public class ExpenseService {
         return _expense.get();
     }
 
-    public Expense addExpense(Expense expense) {
+    public Expense addExpense(Expense expense) throws ExpenseExistsException {
         Optional<Expense> _expense = expenseRepository.findExpenseByName(expense.getName());
         if (_expense.isPresent()) {
-            throw new IllegalStateException("Expense already exists");
+            throw new ExpenseExistsException("Expense already exists");
         }
 
         expenseRepository.save(expense);

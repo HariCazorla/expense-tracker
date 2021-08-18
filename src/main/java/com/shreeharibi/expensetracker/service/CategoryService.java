@@ -1,6 +1,6 @@
 package com.shreeharibi.expensetracker.service;
 
-import com.shreeharibi.expensetracker.exceptions.CategoryDuplicateException;
+import com.shreeharibi.expensetracker.exceptions.CategoryExistsException;
 import com.shreeharibi.expensetracker.exceptions.CategoryNotFoundException;
 import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.category.CategoryRepository;
@@ -28,12 +28,12 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public void addNewCategory(Category category) throws CategoryDuplicateException {
+    public void addNewCategory(Category category) throws CategoryExistsException {
         Optional<Category> _category = categoryRepository.findCategoryByName(category.getName());
 
         if (_category.isPresent()) {
             logger.error("category " + category.getName() + " already exists...");
-            throw new CategoryDuplicateException("Category exists...");
+            throw new CategoryExistsException("Category exists...");
         }
         categoryRepository.save(category);
     }

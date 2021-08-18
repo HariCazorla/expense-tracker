@@ -1,5 +1,6 @@
 package com.shreeharibi.expensetracker.controller;
 
+import com.shreeharibi.expensetracker.exceptions.ExpenseExistsException;
 import com.shreeharibi.expensetracker.exceptions.ExpenseNotFoundException;
 import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.model.Expense;
@@ -62,8 +63,12 @@ public class ExpenseController {
     public Expense addExpense(@RequestBody Expense expense) {
         try {
             return expenseService.addExpense(expense);
-        } catch (DateTimeParseException exception) {
-            throw new IllegalStateException("Invalid date format, use YYYY-MM-DD format");
+        } catch (DateTimeParseException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Invalid date format, use YYYY-MM-DD format", e);
+        } catch (ExpenseExistsException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
     }
 
@@ -73,8 +78,9 @@ public class ExpenseController {
     ) {
         try {
             expenseService.deleteExpenseById(expenseId);
-        } catch (DateTimeParseException exception) {
-            throw new IllegalStateException("Failed to delete expense");
+        } catch (DateTimeParseException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
     }
 
