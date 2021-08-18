@@ -1,6 +1,6 @@
 package com.shreeharibi.expensetracker.controller;
 
-import com.shreeharibi.expensetracker.exceptions.CategoryDuplicateException;
+import com.shreeharibi.expensetracker.exceptions.CategoryExistsException;
 import com.shreeharibi.expensetracker.exceptions.CategoryNotFoundException;
 import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.service.CategoryService;
@@ -58,7 +58,7 @@ public class CategoryController {
         try {
             logger.info("Adding new category "+ category +"...");
             categoryService.addNewCategory(category);
-        } catch (CategoryDuplicateException e) {
+        } catch (CategoryExistsException e) {
             logger.error("Failed to add new category...");
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
