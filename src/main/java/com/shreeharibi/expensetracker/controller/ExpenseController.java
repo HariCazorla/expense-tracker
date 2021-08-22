@@ -2,10 +2,8 @@ package com.shreeharibi.expensetracker.controller;
 
 import com.shreeharibi.expensetracker.exceptions.ExpenseExistsException;
 import com.shreeharibi.expensetracker.exceptions.ExpenseNotFoundException;
-import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.model.Expense;
 import com.shreeharibi.expensetracker.service.ExpenseService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,13 +14,12 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(path = "api/v1/expenses")
 public class ExpenseController {
 
-    private ExpenseService expenseService;
+    private final ExpenseService expenseService;
 
     @Autowired
     public ExpenseController(ExpenseService expenseService) {
@@ -40,7 +37,7 @@ public class ExpenseController {
     public List<Expense> getExpenseByIdorName(
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String name) {
-        List<Expense> result = new ArrayList<Expense>();
+        List<Expense> result = new ArrayList<>();
         try {
             if ((id == null) && (name == null)) {
                 result = expenseService.getExpenses();
@@ -91,10 +88,7 @@ public class ExpenseController {
     ) {
         try {
             return expenseService.updateoldExpense(oldExpenseId, expense);
-        } catch (DateTimeParseException e) {
-            throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
-        } catch (ExpenseNotFoundException e) {
+        } catch (DateTimeParseException | ExpenseNotFoundException e) {
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
