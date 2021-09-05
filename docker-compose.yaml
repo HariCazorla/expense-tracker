@@ -1,7 +1,19 @@
 version: '3.9'
 
 services:
-  db:
+
+  etracker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+    networks:
+      - expense-tracker-service-net
+
+  postgres:
     image: postgres
     restart: always
     ports:
@@ -10,9 +22,16 @@ services:
       - .:/docker-entrypoint-initdb.d/
     environment:
       POSTGRES_PASSWORD: password
+    networks:
+      - expense-tracker-service-net
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 8085:8080
+    networks:
+      - expense-tracker-service-net
+
+networks:
+  expense-tracker-service-net:

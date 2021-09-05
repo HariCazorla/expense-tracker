@@ -42,10 +42,3 @@ jobs:
       # Check the started containers.
       - name: List containers
         run: docker-compose ps
-
-      # build spring boot application
-      - uses: actions/setup-java@v2
-        with:
-          distribution: 'adopt' # See 'Supported distributions' for available options
-          java-version: '11'
-      - run: mvn clean package
