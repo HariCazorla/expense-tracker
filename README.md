@@ -2,14 +2,9 @@
 A small project to understand spring boot, spring boot data JPA, and spring boot security. The expense-tracker is a service which comes with default set of categories. APIs are available to add/edit/delete categories and expenses. Swagger UI is integrated and it can be used to refer API documentation.
 
 # To run the application
-Start the postgres database using
+Start the expense-tracker.
 ```
 docker-compose up
-```
-Start the spring application.
-```
-mvn clean package spring-boot:repackage
-java -jar target\expense-tracker-0.0.1-SNAPSHOT.jar
 ```
 
 Application is available at http://localhost:8080
