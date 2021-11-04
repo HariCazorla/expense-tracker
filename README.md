@@ -1,16 +1,18 @@
 # expense-tracker
 A small project to understand spring boot, spring boot data JPA, and spring boot security. The expense-tracker is a service which comes with default set of categories. APIs are available to add/edit/delete categories and expenses. Swagger UI is integrated and it can be used to refer API documentation.
 
-# To run the application
+## To run the application
 Start the expense-tracker.
 ```
 docker-compose up
 ```
 
+## To deploy on K8s
+Follow steps described in [url](https://github.com/HariCazorla/Kubernetes/tree/master/expense-tracker) to deploy expense tracker on K8s.
+
+## To access swagger ui
 Application is available at http://localhost:8080
-
 Swagger documentation is available at http://localhost:8080/swagger-ui.html#/
-
 To access the REST end points, use basic authentication.
 
 # Available rest end points
