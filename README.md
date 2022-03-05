@@ -30,3 +30,17 @@ Refer swagger documentation for more information related to headers, parameters,
 11. Add new expense. POST http://localhost:8080/api/v1/expenses
 12. Delete existing expense. DELETE http://localhost:8080/api/v1/expenses/{expenseId}
 13. Update an existing expense. PUT http://localhost:8080/api/v1/expenses/{oldExpenseId}
+
+# Docker builds
+
+To create images for x86 and arm platforms
+
+```
+docker login ghcr.io
+
+docker buildx create --name mybuilder
+
+docker buildx use mybuilder
+
+docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/haricazorla/expense-tracker:alpine --push .
+```
