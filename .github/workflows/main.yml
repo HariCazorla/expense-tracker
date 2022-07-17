@@ -62,5 +62,6 @@ jobs:
           PROJECT_NAME: 'expense-tracker'
           BOM_FILE_PATH: '/home/runner/work/expense-tracker/expense-tracker/target/bom.xml'
         run: |
+          pip install requests
           python workflow.py
       
