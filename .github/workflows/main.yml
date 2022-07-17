@@ -50,13 +50,17 @@ jobs:
              docker push ghcr.io/haricazorla/expense-tracker:latest
 
       # Upload BOM
-      - name: Upload BOM to Dependency-track
-        uses: DependencyTrack/gh-upload-sbom@v1.0.0
+      - name: Setup python
+        uses: actions/setup-python@v2
         with:
-          serverhostname: ${{ secrets.ARYTON }}
-          port: 8081
-          protocol: 'http'
-          apikey: ${{ secrets.DEPENDENCY_TRACK_API_KEY }}
-          project: 'e39f9199-61c0-4bb9-8f2f-9cf40353c92e'
-          bomfilename: '/home/runner/work/expense-tracker/expense-tracker/target/bom.xml'
+          python-version: 3.8
+
+      - name: Upload BOM to dependency tracker
+        env:
+          ARYTON: ${{ secrets.ARYTON }}
+          DEPENDENCY_TRACK_API_KEY: ${{ secrets.DEPENDENCY_TRACK_API_KEY }}
+          PROJECT_NAME: 'expense-tracker'
+          BOM_FILE_PATH: '/home/runner/work/expense-tracker/expense-tracker/target/bom.xml'
+        run: |
+          python workflow.py
       
