@@ -55,7 +55,7 @@ jobs:
         with:
           serverhostname: ${{ secrets.ARYTON }}
           port: 8081
-          protocol: http
+          protocol: 'http'
           apikey: ${{ secrets.DEPENDENCY_TRACK_API_KEY }}
           project: 'e39f9199-61c0-4bb9-8f2f-9cf40353c92e'
           bomfilename: '/home/runner/work/expense-tracker/expense-tracker/target/bom.xml'
