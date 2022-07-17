@@ -42,7 +42,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           
       # Login to github container registry.
-      - name: Perform build
+      - name: Docker build and publish to ghcr
         run: |
              echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u HariCazorla --password-stdin
              docker build . --tag ghcr.io/haricazorla/expense-tracker:latest
@@ -52,7 +52,9 @@ jobs:
       - name: Upload BOM to Dependency-track
         uses: DependencyTrack/gh-upload-sbom@v1.0.0
         with:
-          serverhostname: 'example.com'
+          serverhostname: ${{ secrets.ARYTON }}
+          port: 8081
+          protocol: http
           apikey: ${{ secrets.DEPENDENCY_TRACK_API_KEY }}
           project: 'e39f9199-61c0-4bb9-8f2f-9cf40353c92e'
           bomfilename: '/home/runner/work/expense-tracker/expense-tracker/target/bom.xml'
