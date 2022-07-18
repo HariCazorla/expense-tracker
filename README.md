@@ -44,3 +44,8 @@ docker buildx use mybuilder
 
 docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/haricazorla/expense-tracker:alpine --push .
 ```
+
+# Dependency-track
+
+This project is configured with CycloneDX maven plugin to generate SBOM file. As part of CI this SBOM file will
+be uploaded to [Dependency-Track](https://dependencytrack.org/) hosted on OCI for risk assessment.
