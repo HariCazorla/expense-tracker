@@ -2,16 +2,16 @@ version: '3.9'
 
 services:
 
-  etracker:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - postgres
-    ports:
-      - 8080:8080
-    networks:
-      - expense-tracker-service-net
+#  etracker:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - postgres
+#    ports:
+#      - 8080:8080
+#    networks:
+#      - expense-tracker-service-net
 
   postgres:
     image: postgres

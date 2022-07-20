@@ -4,8 +4,8 @@ import com.shreeharibi.expensetracker.exceptions.CategoryExistsException;
 import com.shreeharibi.expensetracker.exceptions.CategoryNotFoundException;
 import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.category.CategoryRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,14 +15,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class CategoryService {
     private final CategoryRepository categoryRepository;
-    Logger logger = LoggerFactory.getLogger(CategoryService.class);
-
-    @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     public List<Category> getCategories() {
         return categoryRepository.findAll();
@@ -32,7 +28,7 @@ public class CategoryService {
         Optional<Category> _category = categoryRepository.findCategoryByName(category.getName());
 
         if (_category.isPresent()) {
-            logger.error("category " + category.getName() + " already exists...");
+            log.error("category " + category.getName() + " already exists...");
             throw new CategoryExistsException("Category exists...");
         }
         categoryRepository.save(category);
@@ -42,7 +38,7 @@ public class CategoryService {
         Optional<Category> _category = categoryRepository.findCategoryByName(categoryName);
 
         if (!_category.isPresent()) {
-            logger.error("category " + categoryName + " does not exist...");
+            log.error("category " + categoryName + " does not exist...");
             throw new CategoryNotFoundException("Category does not exist...");
         }
         System.out.println("Deleting " + categoryName);
@@ -55,9 +51,10 @@ public class CategoryService {
 
         if (_category.isPresent()) {
             categoryRepository.deleteById(categoryId);
+            return;
         }
 
-        logger.error("category id " + categoryId + " does not exist...");
+        log.error("category id " + categoryId + " does not exist...");
         throw new CategoryNotFoundException("Category does not exist...");
     }
 
@@ -66,7 +63,7 @@ public class CategoryService {
         Optional<Category> _category = categoryRepository.findCategoryByName(oldCategoryName);
 
         if (!_category.isPresent()) {
-            logger.error("category " + oldCategoryName + " does not exist...");
+            log.error("category " + oldCategoryName + " does not exist...");
             throw new CategoryNotFoundException("Category does not exist...");
         }
 
@@ -80,7 +77,7 @@ public class CategoryService {
         Optional<Category> _category = categoryRepository.findById(categoryId);
 
         if (!_category.isPresent()) {
-            logger.error("category id " + categoryId + " does not exist...");
+            log.error("category id " + categoryId + " does not exist...");
             throw new CategoryNotFoundException("Category does not exist...");
         }
 
@@ -91,7 +88,7 @@ public class CategoryService {
         Optional<Category> _category = categoryRepository.findCategoryByName(categoryName);
 
         if (!_category.isPresent()) {
-            logger.error("category " + categoryName + " does not exist...");
+            log.error("category " + categoryName + " does not exist...");
             throw new CategoryNotFoundException("Category does not exist...");
         }
 

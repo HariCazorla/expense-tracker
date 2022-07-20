@@ -5,7 +5,8 @@ import com.shreeharibi.expensetracker.exceptions.ExpenseNotFoundException;
 import com.shreeharibi.expensetracker.model.Expense;
 import com.shreeharibi.expensetracker.service.ExpenseService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +18,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/expenses")
+@RequiredArgsConstructor
+@Slf4j
 public class ExpenseController {
 
     private final ExpenseService expenseService;
-
-    @Autowired
-    public ExpenseController(ExpenseService expenseService) {
-        this.expenseService = expenseService;
-    }
 
     @GetMapping(path = "about")
     @ApiOperation("General information on expense-tracker.")

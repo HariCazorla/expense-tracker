@@ -2,6 +2,10 @@ package com.shreeharibi.expensetracker.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -9,6 +13,9 @@ import javax.validation.constraints.Size;
 @Entity
 @ApiModel(description = "class representing the category")
 @Table(name = "category")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
     @Id
     @SequenceGenerator(
@@ -29,47 +36,4 @@ public class Category {
     @Size(max = 500)
     @ApiModelProperty(notes = "Description of the category", example = "Fitness supplements", required = false, allowEmptyValue = true)
     private String description;
-
-    public Category() {
-    }
-
-    public Category(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public Category(Long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

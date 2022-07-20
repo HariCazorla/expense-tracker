@@ -3,9 +3,9 @@ package com.shreeharibi.expensetracker.service;
 import com.shreeharibi.expensetracker.category.ExpenseRepository;
 import com.shreeharibi.expensetracker.exceptions.ExpenseExistsException;
 import com.shreeharibi.expensetracker.exceptions.ExpenseNotFoundException;
-import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.model.Expense;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class ExpenseService {
     private final ExpenseRepository expenseRepository;
-    @Autowired
-    public ExpenseService(ExpenseRepository expenseRepository) {
-        this.expenseRepository = expenseRepository;
-    }
 
     public List<Expense> getExpenses() {
         return expenseRepository.findAll();
