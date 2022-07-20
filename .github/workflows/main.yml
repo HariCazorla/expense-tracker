@@ -46,8 +46,8 @@ jobs:
       - name: Docker build and publish to ghcr
         run: |
              echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u HariCazorla --password-stdin
-             docker build . --tag ghcr.io/haricazorla/expense-tracker:latest
-             docker push ghcr.io/haricazorla/expense-tracker:latest
+             docker build . --tag ghcr.io/haricazorla/expense-tracker:2.0
+             docker push ghcr.io/haricazorla/expense-tracker:2.0
 
       # Upload BOM
       - name: Setup python
