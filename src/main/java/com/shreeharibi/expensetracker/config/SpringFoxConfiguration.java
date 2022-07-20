@@ -27,6 +27,6 @@ public class SpringFoxConfiguration {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("Expense-tracker API")
                 .description("Expense-tracker API reference")
-                .version("1.0").build();
+                .version("2.0").build();
     }
 }

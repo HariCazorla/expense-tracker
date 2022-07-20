@@ -4,9 +4,8 @@ import com.shreeharibi.expensetracker.exceptions.CategoryExistsException;
 import com.shreeharibi.expensetracker.exceptions.CategoryNotFoundException;
 import com.shreeharibi.expensetracker.model.Category;
 import com.shreeharibi.expensetracker.service.CategoryService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +17,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/category")
+@RequiredArgsConstructor
+@Slf4j
 public class CategoryController {
-    private final CategoryService categoryService;
-    Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
-    @Autowired
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
+    private final CategoryService categoryService;
 
     @GetMapping()
     public List<Category> getCategoryByIdorName(
@@ -34,19 +30,19 @@ public class CategoryController {
         List<Category> result = new ArrayList<Category>();
         try {
             if ((id == null) && (name == null)) {
-                logger.info("Getting list of all categories...");
+                log.info("Getting list of all categories...");
                 result = categoryService.getCategories();
             }
             else if (name == null) {
-                logger.info("Getting category by id "+ id +"...");
+                log.info("Getting category by id "+ id +"...");
                 result.add(categoryService.getCategoryById(id));
             }
             else {
-                logger.info("Getting category by name "+ name +"...");
+                log.info("Getting category by name "+ name +"...");
                 result.add(categoryService.getCategoryByName(name));
             }
         } catch (CategoryNotFoundException e) {
-            logger.error("Failed to fetch category information...");
+            log.error("Failed to fetch category information...");
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
@@ -56,10 +52,10 @@ public class CategoryController {
     @PostMapping
     public void addNewCategory(@RequestBody Category category) {
         try {
-            logger.info("Adding new category "+ category +"...");
+            log.info("Adding new category "+ category +"...");
             categoryService.addNewCategory(category);
         } catch (CategoryExistsException e) {
-            logger.error("Failed to add new category...");
+            log.error("Failed to add new category...");
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
@@ -71,7 +67,7 @@ public class CategoryController {
         boolean status = false;
         for (String category : categories) {
             try {
-                logger.info("Deleting category "+ category +"...");
+                log.info("Deleting category "+ category +"...");
                 categoryService.deleteCategoryByName(category);
             } catch (CategoryNotFoundException e) {
                 status = true;
@@ -79,7 +75,7 @@ public class CategoryController {
             }
         }
         if (status) {
-            logger.error("Failed to delete some category...");
+            log.error("Failed to delete some category...");
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -89,10 +85,10 @@ public class CategoryController {
             @PathVariable("categoryId") Long categoryId
     ) {
         try {
-            logger.info("Deleting category id "+ categoryId +"...");
+            log.info("Deleting category id "+ categoryId +"...");
             categoryService.deleteCategoryById(categoryId);
         } catch (CategoryNotFoundException e) {
-            logger.error("Failed to delete category...");
+            log.error("Failed to delete category...");
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
@@ -104,10 +100,10 @@ public class CategoryController {
             @RequestBody Category category
     ) {
         try {
-            logger.info("update category name "+ oldCategoryName +"...");
+            log.info("update category name "+ oldCategoryName +"...");
             return categoryService.updateCategory(oldCategoryName, category);
         } catch (CategoryNotFoundException e) {
-            logger.error("Failed to update category...");
+            log.error("Failed to update category...");
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
